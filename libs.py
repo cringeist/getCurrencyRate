@@ -15,8 +15,8 @@ def getCurrencyFromBankApi(startDate: str, endDate: str):
 
 
 def writeResToGoogleSheet(currencyToWriter: list):
-   googleSheet = gspread.service_account(filename='flaskr/creds/testmaxidtp-d18c77551a21.json')
-   sheet = googleSheet.open('test_maxidtp')
+   googleSheet = gspread.service_account(filename='path/to/creds')
+   sheet = googleSheet.open('sheetname')
    sheet.values_clear("A2:B1000")
    worksheet = sheet.sheet1
    for i in range(0, len(currencyToWriter)):
@@ -31,8 +31,8 @@ def writeResToGoogleSheet(currencyToWriter: list):
         except gspread.exceptions.APIError:
             sleep(60)
             googleSheet.session.close()
-            googleSheet = gspread.service_account(filename='flaskr/creds/testmaxidtp-d18c77551a21.json')
-            sheet = googleSheet.open('test_maxidtp')
+            googleSheet = gspread.service_account(filename='path/to/creds')
+            sheet = googleSheet.open('sheetname')
             worksheet = sheet.sheet1
             worksheet.update_acell(f'A{acellIndex}', date)
         
@@ -42,8 +42,8 @@ def writeResToGoogleSheet(currencyToWriter: list):
         except gspread.exceptions.APIError:
             sleep(60)
             googleSheet.session.close()
-            googleSheet = gspread.service_account(filename='flaskr/creds/testmaxidtp-d18c77551a21.json')
-            sheet = googleSheet.open('test_maxidtp')
+            googleSheet = gspread.service_account(filename='path/to/creds')
+            sheet = googleSheet.open('sheetname')
             worksheet = sheet.sheet1
             worksheet.update_acell(f'B{acellIndex}', 
                                 str(rate).replace('.', ','))
